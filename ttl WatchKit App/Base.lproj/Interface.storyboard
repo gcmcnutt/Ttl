@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="8152.3" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8124.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="8077.2"/>
     </dependencies>
     <scenes>
         <!--TTL-->
@@ -10,11 +10,12 @@
             <objects>
                 <controller title="TTL" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="ttl_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <group width="1" alignment="left" id="JR4-R0-3fz">
+                        <group width="134" alignment="left" id="JR4-R0-3fz">
                             <items>
                                 <label alignment="left" text="Days" id="O0E-9P-4rC"/>
                                 <label alignment="right" text="0" id="22I-US-JqY">
                                     <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
                                 </label>
                             </items>
                         </group>
@@ -23,6 +24,7 @@
                                 <label alignment="left" text="Hours" id="x8b-2Z-GpK"/>
                                 <label alignment="right" text="0" id="Dxg-Lp-1b1">
                                     <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
                                 </label>
                             </items>
                         </group>
@@ -31,6 +33,7 @@
                                 <label alignment="left" text="Minutes" id="IpJ-HW-OCc"/>
                                 <label alignment="right" text="0" id="CZW-hf-YFG">
                                     <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
                                 </label>
                             </items>
                         </group>
@@ -39,6 +42,34 @@
                                 <label alignment="left" text="Seconds" id="fSP-Sk-1vx"/>
                                 <label alignment="right" text="0" id="eW2-sv-9yz">
                                     <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="134" alignment="left" id="kBq-Oq-afq">
+                            <items>
+                                <label alignment="left" text="x" id="AEI-DB-cvF"/>
+                                <label alignment="right" text="0" id="hW8-9G-Joa">
+                                    <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="134" alignment="left" id="IzO-kK-Jo7">
+                            <items>
+                                <label alignment="left" text="y" id="NNT-la-MWF"/>
+                                <label alignment="right" text="0" id="fDS-Ok-Iau">
+                                    <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="134" alignment="left" id="ktC-Cs-t62">
+                            <items>
+                                <label alignment="left" text="z" id="Pcu-Sp-ckW"/>
+                                <label alignment="right" text="0" id="hfb-dE-AqK">
+                                    <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
                                 </label>
                             </items>
                         </group>
@@ -48,10 +79,13 @@
                         <outlet property="hours" destination="Dxg-Lp-1b1" id="pvc-98-gke"/>
                         <outlet property="minutes" destination="CZW-hf-YFG" id="LAm-UV-g9n"/>
                         <outlet property="seconds" destination="eW2-sv-9yz" id="nyY-RE-F0C"/>
+                        <outlet property="x" destination="hW8-9G-Joa" id="94Z-8b-Lb9"/>
+                        <outlet property="y" destination="fDS-Ok-Iau" id="LSk-Hs-YjO"/>
+                        <outlet property="z" destination="hfb-dE-AqK" id="dlv-7b-ddw"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="345"/>
+            <point key="canvasLocation" x="220" y="344.5"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

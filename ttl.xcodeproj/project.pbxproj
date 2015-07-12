@@ -16,10 +16,10 @@
 		D3A3C9031B477EC6002563DD /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3C9021B477EC6002563DD /* InterfaceController.swift */; };
 		D3A3C9051B477EC6002563DD /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3C9041B477EC6002563DD /* NotificationController.swift */; };
 		D3A3C9071B477EC6002563DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3A3C9061B477EC6002563DD /* Images.xcassets */; };
-		D3A3C90B1B477EC7002563DD /* ttl WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = D3A3C90A1B477EC7002563DD /* ttl WatchKit App.app */; };
 		D3A3C9131B477EC7002563DD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3A3C9111B477EC7002563DD /* Interface.storyboard */; };
 		D3A3C9151B477EC7002563DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3A3C9141B477EC7002563DD /* Images.xcassets */; };
-		D3A3C9181B477EC7002563DD /* ttl WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D3A3C8FD1B477EC6002563DD /* ttl WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D3B358DF1B48F6D300B78940 /* ttl WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D3A3C8FD1B477EC6002563DD /* ttl WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D3B358E21B48F6D300B78940 /* ttl WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D3A3C90A1B477EC7002563DD /* ttl WatchKit App.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,32 +30,43 @@
 			remoteGlobalIDString = D3A3C8D31B477E7F002563DD;
 			remoteInfo = ttl;
 		};
-		D3A3C90C1B477EC7002563DD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D3A3C8CC1B477E7F002563DD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D3A3C9091B477EC7002563DD;
-			remoteInfo = "ttl WatchKit App";
-		};
-		D3A3C9161B477EC7002563DD /* PBXContainerItemProxy */ = {
+		D3B358DD1B48F6D300B78940 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D3A3C8CC1B477E7F002563DD /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D3A3C8FC1B477EC6002563DD;
 			remoteInfo = "ttl WatchKit Extension";
 		};
+		D3B358E01B48F6D300B78940 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3A3C8CC1B477E7F002563DD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D3A3C9091B477EC7002563DD;
+			remoteInfo = "ttl WatchKit App";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D3A3C91F1B477EC7002563DD /* Embed App Extensions */ = {
+		D3B358E31B48F6D300B78940 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				D3A3C9181B477EC7002563DD /* ttl WatchKit Extension.appex in Embed App Extensions */,
+				D3B358DF1B48F6D300B78940 /* ttl WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3B358E41B48F6D300B78940 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				D3B358E21B48F6D300B78940 /* ttl WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -216,12 +227,12 @@
 				D3A3C8D01B477E7F002563DD /* Sources */,
 				D3A3C8D11B477E7F002563DD /* Frameworks */,
 				D3A3C8D21B477E7F002563DD /* Resources */,
-				D3A3C91F1B477EC7002563DD /* Embed App Extensions */,
+				D3B358E41B48F6D300B78940 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D3A3C9171B477EC7002563DD /* PBXTargetDependency */,
+				D3B358E11B48F6D300B78940 /* PBXTargetDependency */,
 			);
 			name = ttl;
 			productName = ttl;
@@ -257,27 +268,28 @@
 			buildRules = (
 			);
 			dependencies = (
-				D3A3C90D1B477EC7002563DD /* PBXTargetDependency */,
 			);
 			name = "ttl WatchKit Extension";
 			productName = "ttl WatchKit Extension";
 			productReference = D3A3C8FD1B477EC6002563DD /* ttl WatchKit Extension.appex */;
-			productType = "com.apple.product-type.watchkit-extension";
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 		D3A3C9091B477EC7002563DD /* ttl WatchKit App */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3A3C9191B477EC7002563DD /* Build configuration list for PBXNativeTarget "ttl WatchKit App" */;
 			buildPhases = (
 				D3A3C9081B477EC7002563DD /* Resources */,
+				D3B358E31B48F6D300B78940 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D3B358DE1B48F6D300B78940 /* PBXTargetDependency */,
 			);
 			name = "ttl WatchKit App";
 			productName = "ttl WatchKit App";
 			productReference = D3A3C90A1B477EC7002563DD /* ttl WatchKit App.app */;
-			productType = "com.apple.product-type.application.watchapp";
+			productType = "com.apple.product-type.application.watchapp2";
 		};
 /* End PBXNativeTarget section */
 
@@ -285,7 +297,8 @@
 		D3A3C8CC1B477E7F002563DD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Greg McNutt";
 				TargetAttributes = {
 					D3A3C8D31B477E7F002563DD = {
@@ -348,7 +361,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A3C9071B477EC6002563DD /* Images.xcassets in Resources */,
-				D3A3C90B1B477EC7002563DD /* ttl WatchKit App.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,15 +410,15 @@
 			target = D3A3C8D31B477E7F002563DD /* ttl */;
 			targetProxy = D3A3C8EA1B477E7F002563DD /* PBXContainerItemProxy */;
 		};
-		D3A3C90D1B477EC7002563DD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D3A3C9091B477EC7002563DD /* ttl WatchKit App */;
-			targetProxy = D3A3C90C1B477EC7002563DD /* PBXContainerItemProxy */;
-		};
-		D3A3C9171B477EC7002563DD /* PBXTargetDependency */ = {
+		D3B358DE1B48F6D300B78940 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D3A3C8FC1B477EC6002563DD /* ttl WatchKit Extension */;
-			targetProxy = D3A3C9161B477EC7002563DD /* PBXContainerItemProxy */;
+			targetProxy = D3B358DD1B48F6D300B78940 /* PBXContainerItemProxy */;
+		};
+		D3B358E11B48F6D300B78940 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D3A3C9091B477EC7002563DD /* ttl WatchKit App */;
+			targetProxy = D3B358E01B48F6D300B78940 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -459,6 +471,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -474,7 +487,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -513,7 +526,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -527,6 +540,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ttl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.accelero.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -537,6 +551,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ttl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.accelero.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -555,6 +570,7 @@
 				);
 				INFOPLIST_FILE = ttlTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.accelero.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ttl.app/ttl";
 			};
@@ -570,6 +586,7 @@
 				);
 				INFOPLIST_FILE = ttlTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.accelero.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ttl.app/ttl";
 			};
@@ -580,17 +597,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				IBSC_MODULE = ttl_WatchKit_Extension;
 				INFOPLIST_FILE = "ttl WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.accelero.ttl.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -599,13 +618,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = ttl_WatchKit_Extension;
 				INFOPLIST_FILE = "ttl WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.accelero.ttl.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -618,8 +639,12 @@
 				);
 				INFOPLIST_FILE = "ttl WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.accelero.ttl.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -628,8 +653,12 @@
 			buildSettings = {
 				INFOPLIST_FILE = "ttl WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.accelero.ttl.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -652,6 +681,7 @@
 				D3A3C8F51B477E7F002563DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D3A3C8F61B477E7F002563DD /* Build configuration list for PBXNativeTarget "ttlTests" */ = {
 			isa = XCConfigurationList;
@@ -660,6 +690,7 @@
 				D3A3C8F81B477E7F002563DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D3A3C9191B477EC7002563DD /* Build configuration list for PBXNativeTarget "ttl WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -668,6 +699,7 @@
 				D3A3C91B1B477EC7002563DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D3A3C91C1B477EC7002563DD /* Build configuration list for PBXNativeTarget "ttl WatchKit Extension" */ = {
 			isa = XCConfigurationList;
@@ -676,6 +708,7 @@
 				D3A3C91E1B477EC7002563DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
