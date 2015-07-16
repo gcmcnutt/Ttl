@@ -303,6 +303,7 @@
 				TargetAttributes = {
 					D3A3C8D31B477E7F002563DD = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = ZFJ4RM7VL4;
 					};
 					D3A3C8E81B477E7F002563DD = {
 						CreatedOnToolsVersion = 6.4;
@@ -310,6 +311,7 @@
 					};
 					D3A3C8FC1B477EC6002563DD = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = ZFJ4RM7VL4;
 					};
 					D3A3C9091B477EC7002563DD = {
 						CreatedOnToolsVersion = 6.4;
@@ -538,6 +540,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ttl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.accelero.$(PRODUCT_NAME:rfc1034identifier)";
@@ -549,6 +552,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ttl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.accelero.$(PRODUCT_NAME:rfc1034identifier)";
@@ -633,6 +637,7 @@
 		D3A3C91D1B477EC7002563DD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -651,6 +656,7 @@
 		D3A3C91E1B477EC7002563DD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "ttl WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.accelero.ttl.watchkitapp.watchkitextension;
