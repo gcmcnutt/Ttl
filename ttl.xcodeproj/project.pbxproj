@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D30D84591B575603000951DE /* MotionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30D84581B575603000951DE /* MotionController.swift */; };
 		D3A3C8DA1B477E7F002563DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3C8D91B477E7F002563DD /* AppDelegate.swift */; };
 		D3A3C8DC1B477E7F002563DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3C8DB1B477E7F002563DD /* ViewController.swift */; };
 		D3A3C8DF1B477E7F002563DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3A3C8DD1B477E7F002563DD /* Main.storyboard */; };
@@ -72,6 +73,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D30D84581B575603000951DE /* MotionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionController.swift; sourceTree = "<group>"; };
 		D3A3C8D41B477E7F002563DD /* ttl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ttl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3A3C8D81B477E7F002563DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3A3C8D91B477E7F002563DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				D3A3C9041B477EC6002563DD /* NotificationController.swift */,
 				D3A3C9061B477EC6002563DD /* Images.xcassets */,
 				D3A3C8FF1B477EC6002563DD /* Supporting Files */,
+				D30D84581B575603000951DE /* MotionController.swift */,
 			);
 			path = "ttl WatchKit Extension";
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A3C9051B477EC6002563DD /* NotificationController.swift in Sources */,
+				D30D84591B575603000951DE /* MotionController.swift in Sources */,
 				D3A3C9031B477EC6002563DD /* InterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

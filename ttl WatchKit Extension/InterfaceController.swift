@@ -13,16 +13,12 @@ import CoreMotion
 class InterfaceController: WKInterfaceController {
 
     var arrivalDate: NSDate!
-    let mm = CMMotionManager()
     var timer = NSTimer()
     
     @IBOutlet weak var days: WKInterfaceLabel!
     @IBOutlet weak var hours: WKInterfaceLabel!
     @IBOutlet weak var minutes: WKInterfaceLabel!
     @IBOutlet weak var seconds: WKInterfaceLabel!
-    @IBOutlet var x: WKInterfaceLabel!
-    @IBOutlet var y: WKInterfaceLabel!
-    @IBOutlet var z: WKInterfaceLabel!
 
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
@@ -46,16 +42,6 @@ class InterfaceController: WKInterfaceController {
             userInfo: nil,
             repeats: true)
         showTTL(timer)
-        
-        if (mm.accelerometerAvailable) {
-            mm.accelerometerUpdateInterval = 0.5
-            self.mm.startAccelerometerUpdatesToQueue(NSOperationQueue()) {
-                (data, error) in
-                self.x.setText(NSString(format: "%.2f", data!.acceleration.x) as String)
-                self.y.setText(NSString(format: "%.2f", data!.acceleration.y) as String)
-                self.z.setText(NSString(format: "%.2f", data!.acceleration.z) as String)
-            }
-        }
     }
 
     override func didDeactivate() {

@@ -46,46 +46,96 @@
                                 </label>
                             </items>
                         </group>
-                        <group width="134" alignment="left" id="kBq-Oq-afq">
-                            <items>
-                                <label alignment="left" text="x" id="AEI-DB-cvF"/>
-                                <label alignment="right" text="0" id="hW8-9G-Joa">
-                                    <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
-                                </label>
-                            </items>
-                        </group>
-                        <group width="134" alignment="left" id="IzO-kK-Jo7">
-                            <items>
-                                <label alignment="left" text="y" id="NNT-la-MWF"/>
-                                <label alignment="right" text="0" id="fDS-Ok-Iau">
-                                    <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
-                                </label>
-                            </items>
-                        </group>
-                        <group width="134" alignment="left" id="ktC-Cs-t62">
-                            <items>
-                                <label alignment="left" text="z" id="Pcu-Sp-ckW"/>
-                                <label alignment="right" text="0" id="hfb-dE-AqK">
-                                    <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
-                                </label>
-                            </items>
-                        </group>
                     </items>
                     <connections>
                         <outlet property="days" destination="22I-US-JqY" id="xIf-HO-0PZ"/>
                         <outlet property="hours" destination="Dxg-Lp-1b1" id="pvc-98-gke"/>
                         <outlet property="minutes" destination="CZW-hf-YFG" id="LAm-UV-g9n"/>
                         <outlet property="seconds" destination="eW2-sv-9yz" id="nyY-RE-F0C"/>
-                        <outlet property="x" destination="hW8-9G-Joa" id="94Z-8b-Lb9"/>
-                        <outlet property="y" destination="fDS-Ok-Iau" id="LSk-Hs-YjO"/>
-                        <outlet property="z" destination="hfb-dE-AqK" id="dlv-7b-ddw"/>
+                        <segue destination="LUA-dJ-gKD" kind="relationship" relationship="nextPage" id="8he-sV-bur"/>
                     </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="220" y="344.5"/>
+        </scene>
+        <!--Motion-->
+        <scene sceneID="Guv-X8-sXu">
+            <objects>
+                <controller title="Motion" hidesWhenLoading="NO" id="LUA-dJ-gKD" customClass="MotionController" customModule="ttl_WatchKit_Extension">
+                    <items>
+                        <group width="136" alignment="left" id="kBq-Oq-afq">
+                            <items>
+                                <label alignment="right" text="0" id="hW8-9G-Joa">
+                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                                <label alignment="left" text="accel X" id="AEI-DB-cvF"/>
+                            </items>
+                        </group>
+                        <group width="134" alignment="left" id="IzO-kK-Jo7">
+                            <items>
+                                <label alignment="left" text="accel Y" id="NNT-la-MWF"/>
+                                <label alignment="right" text="0" id="fDS-Ok-Iau">
+                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="134" alignment="left" id="ktC-Cs-t62">
+                            <items>
+                                <label alignment="left" text="accel Z" id="Pcu-Sp-ckW"/>
+                                <label alignment="right" text="0" id="hfb-dE-AqK">
+                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="136" alignment="left" id="rfU-4I-BX2">
+                            <items>
+                                <label alignment="left" text="rate" id="BOB-oh-IfJ"/>
+                                <label alignment="right" text="0" id="rV7-m4-I8Z">
+                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="134" alignment="left" id="g30-ql-GFo">
+                            <items>
+                                <label alignment="left" text="gyro" id="W1z-wa-mMe"/>
+                                <label alignment="right" text="false" id="C8i-PT-XLf">
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="134" alignment="left" id="h0O-Da-vwR">
+                            <items>
+                                <label alignment="left" text="mag" id="tb3-CO-VRc"/>
+                                <label alignment="right" text="false" id="5Mp-IA-SZo">
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="134" alignment="left" id="7GW-aY-s0q">
+                            <items>
+                                <label alignment="left" text="motion" id="x8n-Ag-Nwv"/>
+                                <label alignment="right" text="false" id="774-sW-H8o">
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="gyro" destination="C8i-PT-XLf" id="V3r-uK-Tlu"/>
+                        <outlet property="mag" destination="5Mp-IA-SZo" id="2GT-ob-vmM"/>
+                        <outlet property="motion" destination="774-sW-H8o" id="0wn-0c-O5c"/>
+                        <outlet property="rate" destination="rV7-m4-I8Z" id="xvQ-4b-5EA"/>
+                        <outlet property="x" destination="hW8-9G-Joa" id="ruU-oD-zJR"/>
+                        <outlet property="y" destination="fDS-Ok-Iau" id="42k-Kb-IZI"/>
+                        <outlet property="z" destination="hfb-dE-AqK" id="sxj-ln-QsH"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="468" y="344.5"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
