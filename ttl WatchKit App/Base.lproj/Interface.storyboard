@@ -63,6 +63,11 @@
             <objects>
                 <controller title="Motion" hidesWhenLoading="NO" id="LUA-dJ-gKD" customClass="MotionController" customModule="ttl_WatchKit_Extension">
                     <items>
+                        <switch width="1" alignment="left" title="accelOn" id="z7D-03-GnL">
+                            <connections>
+                                <action selector="accelOnUpdate:" destination="LUA-dJ-gKD" id="BOp-D1-1eC"/>
+                            </connections>
+                        </switch>
                         <group width="136" alignment="left" id="kBq-Oq-afq">
                             <items>
                                 <label alignment="right" text="0" id="hW8-9G-Joa">
@@ -99,36 +104,19 @@
                                 </label>
                             </items>
                         </group>
-                        <group width="134" alignment="left" id="g30-ql-GFo">
+                        <group width="136" alignment="left" id="UY0-pB-2Yf">
                             <items>
-                                <label alignment="left" text="gyro" id="W1z-wa-mMe"/>
-                                <label alignment="right" text="false" id="C8i-PT-XLf">
-                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
-                                </label>
-                            </items>
-                        </group>
-                        <group width="134" alignment="left" id="h0O-Da-vwR">
-                            <items>
-                                <label alignment="left" text="mag" id="tb3-CO-VRc"/>
-                                <label alignment="right" text="false" id="5Mp-IA-SZo">
-                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
-                                </label>
-                            </items>
-                        </group>
-                        <group width="134" alignment="left" id="7GW-aY-s0q">
-                            <items>
-                                <label alignment="left" text="motion" id="x8n-Ag-Nwv"/>
-                                <label alignment="right" text="false" id="774-sW-H8o">
+                                <label alignment="left" text="total" id="fOm-ze-jk6"/>
+                                <label alignment="right" text="0" id="QhC-aT-2xD">
                                     <fontDescription key="font" style="UICTFontTextStyleBody"/>
                                 </label>
                             </items>
                         </group>
                     </items>
                     <connections>
-                        <outlet property="gyro" destination="C8i-PT-XLf" id="V3r-uK-Tlu"/>
-                        <outlet property="mag" destination="5Mp-IA-SZo" id="2GT-ob-vmM"/>
-                        <outlet property="motion" destination="774-sW-H8o" id="0wn-0c-O5c"/>
+                        <outlet property="accelOn" destination="z7D-03-GnL" id="eUS-Mc-cmj"/>
                         <outlet property="rate" destination="rV7-m4-I8Z" id="xvQ-4b-5EA"/>
+                        <outlet property="totalSamples" destination="QhC-aT-2xD" id="SoH-Y6-zPq"/>
                         <outlet property="x" destination="hW8-9G-Joa" id="ruU-oD-zJR"/>
                         <outlet property="y" destination="fDS-Ok-Iau" id="42k-Kb-IZI"/>
                         <outlet property="z" destination="hfb-dE-AqK" id="sxj-ln-QsH"/>

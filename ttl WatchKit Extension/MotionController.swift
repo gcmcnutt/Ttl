@@ -16,14 +16,13 @@ class MotionController: WKInterfaceController {
     let mm = CMMotionManager()
     var timer = NSTimer()
     
+    @IBOutlet var accelOn: WKInterfaceSwitch!
     @IBOutlet var x: WKInterfaceLabel!
     @IBOutlet var y: WKInterfaceLabel!
     @IBOutlet var z: WKInterfaceLabel!
     @IBOutlet var rate: WKInterfaceLabel!
-    @IBOutlet var gyro: WKInterfaceLabel!
-    @IBOutlet var mag: WKInterfaceLabel!
-    @IBOutlet var motion: WKInterfaceLabel!
-    
+    @IBOutlet var totalSamples: WKInterfaceLabel!
+
     var xVal = 0.0, yVal = 0.0, zVal = 0.0
     var count : UInt64 = 0
     var lastCount: UInt64 = 0
@@ -33,13 +32,12 @@ class MotionController: WKInterfaceController {
         super.awakeWithContext(context)
         
         // Configure interface objects here.
+        self.accelOn.setEnabled(mm.accelerometerAvailable)
     }
     
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-        
-        if (mm.accelerometerAvailable) {
+    // the accelOn switch is pressed
+    @IBAction func accelOnUpdate(value: Bool) {
+        if (value) {
             self.x.setTextColor(UIColor.yellowColor())
             self.y.setTextColor(UIColor.yellowColor())
             self.z.setTextColor(UIColor.yellowColor())
@@ -52,8 +50,19 @@ class MotionController: WKInterfaceController {
                 self.zVal = data!.acceleration.z
                 self.count++
             }
-            
+        } else {
+            self.x.setTextColor(UIColor.blueColor())
+            self.y.setTextColor(UIColor.blueColor())
+            self.z.setTextColor(UIColor.blueColor())
+            self.rate.setTextColor(UIColor.blueColor())
+            self.mm.stopAccelerometerUpdates()
         }
+    }
+    
+    override func willActivate() {
+        // This method is called when watch view controller is about to be visible to user
+        super.willActivate()
+        
         timer.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(0.5,
             target: self,
@@ -61,10 +70,6 @@ class MotionController: WKInterfaceController {
             userInfo: nil,
             repeats: true)
         lastUpdate = mach_absolute_time()
-
-        self.gyro.setText(mm.gyroAvailable.description)
-        self.mag.setText(mm.magnetometerAvailable.description)
-        self.motion.setText(mm.deviceMotionAvailable.description)
     }
     
     override func didDeactivate() {
@@ -87,5 +92,7 @@ class MotionController: WKInterfaceController {
         self.rate.setText(NSString(format: "%.2f", rate) as String)
         lastCount = count
         lastUpdate = now
+        
+        self.totalSamples.setText(count.description)
     }
 }
