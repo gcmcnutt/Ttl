@@ -4,6 +4,16 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8124.4"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="8077.2"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="PingFangWatch.ttc">
+            <string>PingFang-SC-Thin</string>
+            <string>PingFang-SC-Thin</string>
+            <string>PingFang-SC-Thin</string>
+            <string>PingFang-SC-Thin</string>
+            <string>PingFang-SC-Thin</string>
+            <string>PingFang-SC-Thin</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--TTL-->
         <scene sceneID="aou-V4-d1y">
@@ -63,67 +73,116 @@
             <objects>
                 <controller title="Motion" hidesWhenLoading="NO" id="LUA-dJ-gKD" customClass="MotionController" customModule="ttl_WatchKit_Extension">
                     <items>
-                        <switch width="1" alignment="left" title="accelOn" id="z7D-03-GnL">
+                        <slider width="1" alignment="left" value="2" maximum="10" steps="10" id="F9d-wf-dMa">
                             <connections>
-                                <action selector="accelOnUpdate:" destination="LUA-dJ-gKD" id="BOp-D1-1eC"/>
+                                <action selector="durationChanged:" destination="LUA-dJ-gKD" id="hba-iI-E6c"/>
                             </connections>
-                        </switch>
+                        </slider>
+                        <group width="134" alignment="left" id="87V-fl-RDh">
+                            <items>
+                                <label alignment="right" text="2.0" id="BTP-bU-Ebt">
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                                <label alignment="left" text="durationMins" id="Bu0-Df-b7I"/>
+                            </items>
+                        </group>
+                        <button width="1" alignment="left" title="Start Recorder" id="IbT-LF-Ffe">
+                            <connections>
+                                <action selector="startRecorder" destination="LUA-dJ-gKD" id="P6y-Yn-8ml"/>
+                            </connections>
+                        </button>
+                        <group width="134" height="20" alignment="left" id="UEC-Ai-eBv">
+                            <items>
+                                <label alignment="left" text="asOf" id="iFe-yn-GF5">
+                                    <fontDescription key="font" name="PingFang-SC-Thin" family="PingFang SC" pointSize="10"/>
+                                </label>
+                                <label alignment="right" text="0" id="dS0-K6-Wc1">
+                                    <fontDescription key="font" name="PingFang-SC-Thin" family="PingFang SC" pointSize="10"/>
+                                </label>
+                            </items>
+                        </group>
+                        <button width="1" alignment="left" title="Process Since" id="aI8-32-1ET">
+                            <connections>
+                                <action selector="processRecorded" destination="LUA-dJ-gKD" id="O7k-2B-AMR"/>
+                            </connections>
+                        </button>
+                        <group width="136" height="20" alignment="left" id="CCK-dk-9NW">
+                            <items>
+                                <label alignment="left" text="events" id="qPS-ri-B2s"/>
+                                <label alignment="right" text="0" id="eYe-aP-W6T">
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="136" height="20" alignment="left" id="fXq-pS-dGZ">
+                            <items>
+                                <label alignment="left" text="identifier" id="qd3-hh-2i0"/>
+                                <label alignment="right" text="0" id="1az-ER-nr3">
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
                         <group width="136" alignment="left" id="kBq-Oq-afq">
                             <items>
                                 <label alignment="right" text="0" id="hW8-9G-Joa">
-                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="font" style="UICTFontTextStyleBody"/>
                                 </label>
-                                <label alignment="left" text="accel X" id="AEI-DB-cvF"/>
+                                <label alignment="left" text="last X" id="AEI-DB-cvF"/>
                             </items>
                         </group>
                         <group width="134" alignment="left" id="IzO-kK-Jo7">
                             <items>
-                                <label alignment="left" text="accel Y" id="NNT-la-MWF"/>
+                                <label alignment="left" text="last Y" id="NNT-la-MWF"/>
                                 <label alignment="right" text="0" id="fDS-Ok-Iau">
-                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="font" style="UICTFontTextStyleBody"/>
                                 </label>
                             </items>
                         </group>
-                        <group width="134" alignment="left" id="ktC-Cs-t62">
+                        <group width="134" height="20" alignment="left" id="ktC-Cs-t62">
                             <items>
-                                <label alignment="left" text="accel Z" id="Pcu-Sp-ckW"/>
+                                <label alignment="left" text="last Z" id="Pcu-Sp-ckW"/>
                                 <label alignment="right" text="0" id="hfb-dE-AqK">
-                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="font" style="UICTFontTextStyleBody"/>
                                 </label>
                             </items>
                         </group>
-                        <group width="136" alignment="left" id="rfU-4I-BX2">
+                        <group width="134" height="20" alignment="left" id="yJG-SR-jQN">
                             <items>
-                                <label alignment="left" text="rate" id="BOB-oh-IfJ"/>
-                                <label alignment="right" text="0" id="rV7-m4-I8Z">
-                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                <label alignment="left" text="min" id="Cd9-Sd-3Ia">
+                                    <fontDescription key="font" name="PingFang-SC-Thin" family="PingFang SC" pointSize="10"/>
+                                </label>
+                                <label alignment="right" text="0" id="gg3-5V-XgE">
+                                    <fontDescription key="font" name="PingFang-SC-Thin" family="PingFang SC" pointSize="10"/>
                                 </label>
                             </items>
                         </group>
-                        <group width="136" alignment="left" id="UY0-pB-2Yf">
+                        <group width="134" height="20" alignment="left" id="Q5O-gH-zf2">
                             <items>
-                                <label alignment="left" text="total" id="fOm-ze-jk6"/>
-                                <label alignment="right" text="0" id="QhC-aT-2xD">
-                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                <label alignment="left" text="max" id="L6C-JO-OpL">
+                                    <fontDescription key="font" name="PingFang-SC-Thin" family="PingFang SC" pointSize="10"/>
+                                </label>
+                                <label alignment="right" text="0" id="44l-W1-mvd">
+                                    <fontDescription key="font" name="PingFang-SC-Thin" family="PingFang SC" pointSize="10"/>
                                 </label>
                             </items>
                         </group>
                     </items>
                     <connections>
-                        <outlet property="accelOn" destination="z7D-03-GnL" id="eUS-Mc-cmj"/>
-                        <outlet property="rate" destination="rV7-m4-I8Z" id="xvQ-4b-5EA"/>
-                        <outlet property="totalSamples" destination="QhC-aT-2xD" id="SoH-Y6-zPq"/>
+                        <outlet property="duration" destination="BTP-bU-Ebt" id="iVa-5t-WaK"/>
+                        <outlet property="durationRef" destination="F9d-wf-dMa" id="lS8-gL-hb3"/>
+                        <outlet property="events" destination="eYe-aP-W6T" id="trZ-41-RyR"/>
+                        <outlet property="identifier" destination="1az-ER-nr3" id="Nfv-9y-fy0"/>
+                        <outlet property="lastStartTime" destination="dS0-K6-Wc1" id="hqp-kb-n1t"/>
+                        <outlet property="max" destination="44l-W1-mvd" id="IRV-yF-x13"/>
+                        <outlet property="min" destination="gg3-5V-XgE" id="hnN-Td-TKP"/>
+                        <outlet property="start" destination="IbT-LF-Ffe" id="EFv-Ph-09T"/>
                         <outlet property="x" destination="hW8-9G-Joa" id="ruU-oD-zJR"/>
                         <outlet property="y" destination="fDS-Ok-Iau" id="42k-Kb-IZI"/>
                         <outlet property="z" destination="hfb-dE-AqK" id="sxj-ln-QsH"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="468" y="344.5"/>
+            <point key="canvasLocation" x="468" y="344"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

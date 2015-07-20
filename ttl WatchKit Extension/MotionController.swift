@@ -11,88 +11,103 @@ import Foundation
 import CoreMotion
 import Darwin
 
+extension CMSensorDataList: SequenceType {
+    public func generate() -> NSFastGenerator {
+        return NSFastGenerator(self)
+    }
+}
+
 class MotionController: WKInterfaceController {
+
+    let sr = CMSensorRecorder()
+    var durationValue = 2.0
+    var lastStart = NSDate()
+    let dateFormatter = NSDateFormatter()
     
-    let mm = CMMotionManager()
-    var timer = NSTimer()
-    
-    @IBOutlet var accelOn: WKInterfaceSwitch!
+    @IBOutlet var durationRef: WKInterfaceSlider!
+    @IBOutlet var duration: WKInterfaceLabel!
+    @IBOutlet var start: WKInterfaceButton!
+    @IBOutlet var lastStartTime: WKInterfaceLabel!
     @IBOutlet var x: WKInterfaceLabel!
     @IBOutlet var y: WKInterfaceLabel!
     @IBOutlet var z: WKInterfaceLabel!
-    @IBOutlet var rate: WKInterfaceLabel!
-    @IBOutlet var totalSamples: WKInterfaceLabel!
-
-    var xVal = 0.0, yVal = 0.0, zVal = 0.0
-    var count : UInt64 = 0
-    var lastCount: UInt64 = 0
-    var lastUpdate: UInt64 = 0
+    @IBOutlet var events: WKInterfaceLabel!
+    @IBOutlet var identifier: WKInterfaceLabel!
+    @IBOutlet var min: WKInterfaceLabel!
+    @IBOutlet var max: WKInterfaceLabel!
     
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
+
         // Configure interface objects here.
-        self.accelOn.setEnabled(mm.accelerometerAvailable)
+        self.start.setEnabled(CMSensorRecorder.isAccelerometerRecordingAvailable())
+        self.lastStartTime.setText(dateFormatter.stringFromDate(lastStart))
     }
     
-    // the accelOn switch is pressed
-    @IBAction func accelOnUpdate(value: Bool) {
-        if (value) {
-            self.x.setTextColor(UIColor.yellowColor())
-            self.y.setTextColor(UIColor.yellowColor())
-            self.z.setTextColor(UIColor.yellowColor())
-            self.rate.setTextColor(UIColor.greenColor())
-            mm.accelerometerUpdateInterval = 0.0
-            self.mm.startAccelerometerUpdatesToQueue(NSOperationQueue()) {
-                (data, error) in
-                self.xVal = data!.acceleration.x
-                self.yVal = data!.acceleration.y
-                self.zVal = data!.acceleration.z
-                self.count++
+    @IBAction func durationChanged(value: Float) {
+        durationValue = Double(value)
+        self.duration.setText(value.description)
+    }
+    
+    @IBAction func startRecorder() {
+        lastStart = NSDate()
+        self.lastStartTime.setText(dateFormatter.stringFromDate(lastStart))
+        self.sr.recordAccelerometerFor(durationValue * 60.0)
+    }
+    
+    @IBAction func processRecorded() {
+        // TODO throw this to a background thread...
+
+        self.events.setTextColor(UIColor.redColor())
+        
+        let data = sr.accelerometerDataFrom(lastStart, to: NSDate())
+        
+        self.events.setTextColor(UIColor.yellowColor())
+        
+        if (data != nil) {
+            // count and hunt to the last item
+            var count = 0
+            var lastElement: CMRecordedAccelerometerData?
+            var minDate = NSDate.distantFuture()
+            var maxDate = NSDate.distantPast()
+            
+            for element in data as CMSensorDataList {
+                count++;
+                lastElement = element as? CMRecordedAccelerometerData
+                minDate = minDate.earlierDate(lastElement!.startDate)
+                maxDate = maxDate.laterDate(lastElement!.startDate)
             }
+            
+            // update display
+            self.events.setText(count.description)
+            
+            if (lastElement != nil) {
+                self.identifier.setText(lastElement!.identifier.description)
+                
+                let acc = lastElement!.acceleration
+                self.x.setText(NSString(format: "%.2f", acc.x) as String)
+                self.y.setText(NSString(format: "%.2f", acc.y) as String)
+                self.z.setText(NSString(format: "%.2f", acc.z) as String)
+                
+
+                self.min.setText(dateFormatter.stringFromDate(minDate))
+                self.max.setText(dateFormatter.stringFromDate(maxDate))
+            }
+            self.events.setTextColor(UIColor.greenColor())
         } else {
-            self.x.setTextColor(UIColor.blueColor())
-            self.y.setTextColor(UIColor.blueColor())
-            self.z.setTextColor(UIColor.blueColor())
-            self.rate.setTextColor(UIColor.blueColor())
-            self.mm.stopAccelerometerUpdates()
+            self.events.setText("nil")
         }
     }
     
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
-        
-        timer.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.5,
-            target: self,
-            selector: "updateAccel:",
-            userInfo: nil,
-            repeats: true)
-        lastUpdate = mach_absolute_time()
     }
     
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
-        timer.invalidate()
-    }
-
-    func updateAccel(timer: NSTimer) {
-        self.x.setText(NSString(format: "%.2f", xVal) as String)
-        self.y.setText(NSString(format: "%.2f", yVal) as String)
-        self.z.setText(NSString(format: "%.2f", zVal) as String)
-        
-        // compute rate
-        var info : mach_timebase_info = mach_timebase_info(numer: 0, denom: 0)
-        mach_timebase_info(&info)
-        
-        let now = mach_absolute_time()
-        let rate = (Double(count - lastCount) * 1e9) / (Double(now - lastUpdate) * Double(info.numer) / Double(info.denom))
-        self.rate.setText(NSString(format: "%.2f", rate) as String)
-        lastCount = count
-        lastUpdate = now
-        
-        self.totalSamples.setText(count.description)
     }
 }
