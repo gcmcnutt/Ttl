@@ -10,6 +10,7 @@ import WatchKit
 import Foundation
 import CoreMotion
 import Darwin
+import WatchConnectivity
 
 extension CMSensorDataList: SequenceType {
     public func generate() -> NSFastGenerator {
@@ -17,12 +18,13 @@ extension CMSensorDataList: SequenceType {
     }
 }
 
-class MotionController: WKInterfaceController {
+class MotionController: WKInterfaceController, WCSessionDelegate {
 
     let sr = CMSensorRecorder()
     var durationValue = 2.0
     var lastStart = NSDate()
     let dateFormatter = NSDateFormatter()
+    var session = WCSession.defaultSession()
     
     @IBOutlet var durationRef: WKInterfaceSlider!
     @IBOutlet var duration: WKInterfaceLabel!
@@ -44,6 +46,9 @@ class MotionController: WKInterfaceController {
         // Configure interface objects here.
         self.start.setEnabled(CMSensorRecorder.isAccelerometerRecordingAvailable())
         self.lastStartTime.setText(dateFormatter.stringFromDate(lastStart))
+        
+        session.delegate = self
+        session.activateSession()
     }
     
     @IBAction func durationChanged(value: Float) {
@@ -72,13 +77,31 @@ class MotionController: WKInterfaceController {
             var lastElement: CMRecordedAccelerometerData?
             var minDate = NSDate.distantFuture()
             var maxDate = NSDate.distantPast()
+            var dataStr = "identifier,startDate,timestamp,x,y,z\n"
+            var lastIdentifier : UInt64?
             
             for element in data as CMSensorDataList {
                 count++;
                 lastElement = element as? CMRecordedAccelerometerData
+                if (lastElement!.startDate.compare(NSDate.distantPast()) == NSComparisonResult.OrderedAscending) {
+                    NSLog("wow: " + lastElement!.description)
+                }
                 minDate = minDate.earlierDate(lastElement!.startDate)
                 maxDate = maxDate.laterDate(lastElement!.startDate)
+                
+                let acc = lastElement!.acceleration
+                dataStr += dateFormatter.stringFromDate(lastElement!.startDate) +
+                    (NSString(format: ",%lu,%.2F,%.2f,%.2f,%.2f\n",
+                        lastElement!.identifier,
+                        lastElement!.timestamp,
+                        acc.x, acc.y, acc.z) as String)
+                if (lastIdentifier != nil && lastIdentifier != lastElement!.identifier) {
+                    session.transferUserInfo(["data" : dataStr])
+                    dataStr = ""
+                }
+                lastIdentifier = lastElement!.identifier
             }
+            session.transferUserInfo(["end" : dataStr])
             
             // update display
             self.events.setText(count.description)
@@ -91,11 +114,11 @@ class MotionController: WKInterfaceController {
                 self.y.setText(NSString(format: "%.2f", acc.y) as String)
                 self.z.setText(NSString(format: "%.2f", acc.z) as String)
                 
-
                 self.min.setText(dateFormatter.stringFromDate(minDate))
                 self.max.setText(dateFormatter.stringFromDate(maxDate))
             }
             self.events.setTextColor(UIColor.greenColor())
+            
         } else {
             self.events.setText("nil")
         }
