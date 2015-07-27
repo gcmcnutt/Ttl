@@ -19,36 +19,47 @@ extension CMSensorDataList: SequenceType {
 }
 
 class MotionController: WKInterfaceController, WCSessionDelegate {
-
+    
     let sr = CMSensorRecorder()
     var durationValue = 2.0
     var lastStart = NSDate()
     let dateFormatter = NSDateFormatter()
-    var session = WCSession.defaultSession()
+    let wcsession = WCSession.defaultSession()
+    var cmdCount = 0
     
     @IBOutlet var durationRef: WKInterfaceSlider!
     @IBOutlet var duration: WKInterfaceLabel!
     @IBOutlet var start: WKInterfaceButton!
     @IBOutlet var lastStartTime: WKInterfaceLabel!
-    @IBOutlet var x: WKInterfaceLabel!
-    @IBOutlet var y: WKInterfaceLabel!
-    @IBOutlet var z: WKInterfaceLabel!
-    @IBOutlet var events: WKInterfaceLabel!
-    @IBOutlet var identifier: WKInterfaceLabel!
-    @IBOutlet var min: WKInterfaceLabel!
-    @IBOutlet var max: WKInterfaceLabel!
+    @IBOutlet var reachableVal: WKInterfaceLabel!
+    @IBOutlet var dequeueResult: WKInterfaceLabel!
+    @IBOutlet var cmdCountVal: WKInterfaceLabel!
     
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
         dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
-
-        // Configure interface objects here.
+        
+        // can we record?
         self.start.setEnabled(CMSensorRecorder.isAccelerometerRecordingAvailable())
         self.lastStartTime.setText(dateFormatter.stringFromDate(lastStart))
         
-        session.delegate = self
-        session.activateSession()
+        // wake up session to phone
+        wcsession.delegate = self
+        wcsession.activateSession()
+        
+        // init is-phone-reachable?
+        sessionReachabilityDidChange(wcsession)
+    }
+    
+    func sessionReachabilityDidChange(session: WCSession) {
+        if (session.reachable) {
+            self.reachableVal.setTextColor(UIColor.greenColor())
+            self.reachableVal.setText("reachable")
+        } else {
+            self.reachableVal.setTextColor(UIColor.redColor())
+            self.reachableVal.setText("not reachable")
+        }
     }
     
     @IBAction func durationChanged(value: Float) {
@@ -62,65 +73,88 @@ class MotionController: WKInterfaceController, WCSessionDelegate {
         self.sr.recordAccelerometerFor(durationValue * 60.0)
     }
     
-    @IBAction func processRecorded() {
-        // TODO throw this to a background thread...
-
-        self.events.setTextColor(UIColor.redColor())
+    // watch controlled activation of the dequeuer process
+    @IBAction func dequeuer(value: Bool) {
+        if (self.wcsession.reachable) {
+            self.dequeueResult.setText("sending...")
+            self.wcsession.sendMessage(
+                [
+                    "action": "dequeuer",
+                    "enabled" : value,
+                    "lastStart": lastStart.timeIntervalSince1970.description
+                ],
+                replyHandler: { (result: [String : AnyObject]) -> Void in
+                    self.dequeueResult.setTextColor(UIColor.greenColor())
+                    self.dequeueResult.setText(result.description)
+                },
+                errorHandler: { (error: NSError) -> Void in
+                    self.dequeueResult.setTextColor(UIColor.redColor())
+                    self.dequeueResult.setText(error.description)
+                }
+            )
+        } else {
+            self.dequeueResult.setText("not reachable...")
+        }
+    }
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
         
-        let data = sr.accelerometerDataFrom(lastStart, to: NSDate())
-        
-        self.events.setTextColor(UIColor.yellowColor())
-        
-        if (data != nil) {
+        let command = message["action"] as! String
+        self.cmdCountVal.setText((++cmdCount).description)
+        switch (command) {
+            
+            // a message to get new data from watch
+        case "getData":
+            let lastBatch = UInt64(message["lastBatch"] as! String)
+            let lastStart = Double(message["lastStart"] as! String)
+            
+            // first or subsequent batch?
+            let data : CMSensorDataList!
+            if (lastBatch == 0) {
+                data = sr.accelerometerDataFrom(NSDate(timeIntervalSince1970: lastStart!), to: NSDate())
+            } else {
+                data = sr.accelerometerDataSince(lastBatch!)
+            }
+            
             // count and hunt to the last item
             var count = 0
-            var lastElement: CMRecordedAccelerometerData?
             var minDate = NSDate.distantFuture()
             var maxDate = NSDate.distantPast()
-            var dataStr = "identifier,startDate,timestamp,x,y,z\n"
-            var lastIdentifier : UInt64?
-            
-            for element in data as CMSensorDataList {
-                count++;
-                lastElement = element as? CMRecordedAccelerometerData
-                if (lastElement!.startDate.compare(NSDate.distantPast()) == NSComparisonResult.OrderedAscending) {
-                    NSLog("wow: " + lastElement!.description)
+            var currentBatch : UInt64 = 0
+            if (data != nil) {
+                
+                for element in data as CMSensorDataList {
+                    
+                    let lastElement = element as! CMRecordedAccelerometerData
+                    
+                    // we only do one batch at a time
+                    if (currentBatch == 0) {
+                        currentBatch = lastElement.identifier
+                    }
+                    if (currentBatch != lastElement.identifier) {
+                        currentBatch = lastElement.identifier
+                        break
+                    }
+                    
+                    // next item, measure it
+                    count++;
+                    if (lastElement.startDate.compare(NSDate.distantPast()) == NSComparisonResult.OrderedAscending) {
+                        NSLog("odd date: " + lastElement.description)
+                    }
+                    minDate = minDate.earlierDate(lastElement.startDate)
+                    maxDate = maxDate.laterDate(lastElement.startDate)
                 }
-                minDate = minDate.earlierDate(lastElement!.startDate)
-                maxDate = maxDate.laterDate(lastElement!.startDate)
-                
-                let acc = lastElement!.acceleration
-                dataStr += dateFormatter.stringFromDate(lastElement!.startDate) +
-                    (NSString(format: ",%lu,%.2F,%.2f,%.2f,%.2f\n",
-                        lastElement!.identifier,
-                        lastElement!.timestamp,
-                        acc.x, acc.y, acc.z) as String)
-                if (lastIdentifier != nil && lastIdentifier != lastElement!.identifier) {
-                    session.transferUserInfo(["data" : dataStr])
-                    dataStr = ""
-                }
-                lastIdentifier = lastElement!.identifier
             }
-            session.transferUserInfo(["end" : dataStr])
+            replyHandler(
+                [
+                    "count" : count.description,
+                    "lastBatch": currentBatch.description,
+                    "min" : dateFormatter.stringFromDate(minDate),
+                    "max" : dateFormatter.stringFromDate(maxDate)
+                ])
             
-            // update display
-            self.events.setText(count.description)
-            
-            if (lastElement != nil) {
-                self.identifier.setText(lastElement!.identifier.description)
-                
-                let acc = lastElement!.acceleration
-                self.x.setText(NSString(format: "%.2f", acc.x) as String)
-                self.y.setText(NSString(format: "%.2f", acc.y) as String)
-                self.z.setText(NSString(format: "%.2f", acc.z) as String)
-                
-                self.min.setText(dateFormatter.stringFromDate(minDate))
-                self.max.setText(dateFormatter.stringFromDate(maxDate))
-            }
-            self.events.setTextColor(UIColor.greenColor())
-            
-        } else {
-            self.events.setText("nil")
+        default:
+            NSLog("invalid command \(command)")
         }
     }
     
